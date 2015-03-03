@@ -1,0 +1,691 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN" xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta name="google-site-verification" content="3ZsYvepOooom-JfpLwe96rol7BjOBbXU3XEe1ZL2Wvc" />
+  <meta name="baidu-site-verification" content="AQXbAitj4q" />
+  <meta charset="UTF-8">
+  
+    <title>Code Jam 2009，Round 2A | DoubleQ的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="DoubleQ">
+    
+    <meta name="description" content="Crazy Rows
+题目链接：  
+　　传送门  
+解题思路：
+　　初看此题感觉蒙蒙哒，完全没思路。仔细想来，我们只要记录每行最后一个 1 的位置，然后对其进行调整即可。　　对于第 i 行，我们向下找到a[j] &amp;lt;= i的第 j 行，然后从第 j 行到第 i + 1 行进行调整，记录调整次数">
+    
+    
+    
+    
+    <link rel="alternate" href="atom.xml" title="DoubleQ的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon1.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</body>
+
+  <body>
+    <header>
+      <div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?aba2b2a4436f2c423fe099aceeb9ac73";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="DoubleQ的博客">DoubleQ的博客</a></h1>
+				<h2 class="blog-motto">人一我百，人十我万！追逐青春的梦想，怀着自信的心，永不放弃！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/atom.xml">RSS订阅</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="30" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/30/GCJ2009Round2A/" title="Code Jam 2009，Round 2A" itemprop="url">Code Jam 2009，Round 2A</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2015-01-30T13:03:10.000Z" itemprop="datePublished">1月 30 2015</time>
+  </p>
+</header>
+
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Crazy_Rows"><span class="toc-number">1.</span> <span class="toc-text">Crazy Rows</span></a></li></ol>
+		</div>
+		
+		<h1 id="Crazy_Rows">Crazy Rows</h1>
+<p><strong>题目链接：</strong>  </p>
+<p>　　<a href="http://code.google.com/codejam/contest/204113/dashboard" target="_blank" rel="external">传送门</a>  </p>
+<p><strong>解题思路：</strong></p>
+<p>　　初看此题感觉蒙蒙哒，完全没思路。仔细想来，我们只要记录每行最后一个 1 的位置，然后对其进行调整即可。<br>　　对于第 i 行，我们向下找到a[j] &lt;= i的第 j 行，然后从第 j 行到第 i + 1 行进行调整，记录调整次数，这样所得即为最小次数。<br>　　经过我们之前对 a 数组的预处理，时间复杂度降至O(n^3)。  </p>
+<p><strong>完整代码：</strong>  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;algorithm&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;cstring&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;complex&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;cstdio&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;cmath&gt;</span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MOD = <span class="keyword">int</span>(<span class="number">1e9</span>)+<span class="number">7</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> EPS = <span class="number">1e-9</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI = <span class="built_in">acos</span>(-<span class="number">1.0</span>); <span class="comment">//M_PI;</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">41</span>;</div><div class="line"><span class="keyword">char</span> g[maxn][maxn];</div><div class="line"><span class="built_in">string</span> s;</div><div class="line"><span class="keyword">int</span> a[maxn];</div><div class="line"></div><div class="line"><span class="keyword">int</span> main()</div><div class="line">{</div><div class="line">    <span class="preprocessor">#ifdef DoubleQ</span></div><div class="line">    freopen(<span class="string">"in.in"</span>,<span class="string">"r"</span>,stdin);</div><div class="line">    freopen(<span class="string">"out.out"</span>,<span class="string">"w"</span>,stdout);</div><div class="line">    <span class="preprocessor">#<span class="keyword">endif</span></span></div><div class="line">    std::ios::sync_with_stdio(<span class="keyword">false</span>);</div><div class="line">    std::<span class="built_in">cin</span>.tie(<span class="number">0</span>);</div><div class="line">    <span class="keyword">int</span> T;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; T;</div><div class="line">    <span class="keyword">int</span> cas = <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span>(T--)</div><div class="line">    {</div><div class="line">        <span class="keyword">int</span> n;</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; n;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= n ; i ++)</div><div class="line">        {</div><div class="line">            <span class="built_in">cin</span> &gt;&gt; s;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= n ; j ++)</div><div class="line">                g[i][j] = s[j-<span class="number">1</span>];</div><div class="line">        }</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= n ; i ++)</div><div class="line">        {</div><div class="line">            a[i] = -<span class="number">1</span>;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= n ; j ++)</div><div class="line">                <span class="keyword">if</span>(g[i][j] == <span class="string">'1'</span>)</div><div class="line">                    a[i] = j;</div><div class="line">        }</div><div class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= n ; i ++)</div><div class="line">        {</div><div class="line">            <span class="keyword">int</span> pos = -<span class="number">1</span>;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i ; j &lt;= n ; j ++)</div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(a[j] &lt;= i)</div><div class="line">                {</div><div class="line">                    pos = j;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                }</div><div class="line">            }</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = pos ; j &gt; i ; j --)</div><div class="line">            {</div><div class="line">                swap(a[j-<span class="number">1</span>] , a[j]);</div><div class="line">                cnt ++;</div><div class="line">            }</div><div class="line">        }</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Case #"</span> &lt;&lt; cas++ &lt;&lt; <span class="string">": "</span> &lt;&lt; cnt &lt;&lt; endl;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-share" id="share">
+
+  
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone"></a>
+    <a class="jiathis_button_tsina"></a>
+    <a class="jiathis_button_tqq"></a>
+    <a class="jiathis_button_weixin"></a>
+    <a class="jiathis_button_renren"></a>
+    <a href="http://www.jiathis.com/share?uid=1987046" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1987046" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+
+
+</div>
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GCJ/">GCJ</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/矩阵/">矩阵</a><a href="/tags/技巧/">技巧</a><a href="/tags/优化/">优化</a>
+  </div>
+
+
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/02/03/CF508A/" title="CodeForces508A">
+  <strong>上一篇:</strong><br/>
+  <span>
+  CodeForces508A</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/01/30/GCJ2008Round1A/"  title="Code Jam 2008, Round 1A">
+ <strong>下一篇:</strong><br/> 
+ <span>Code Jam 2008, Round 1A
+</span>
+</a>
+</div>
+
+</nav>
+
+	<!-- 多说-->
+
+<section class="comment">
+<div class="ds-thread" data-thread-key="post-Code Jam 2009，Round 2A" data-title="Code Jam 2009，Round 2A" data-url="http://zhanghe.ac.cn/2015/01/30/GCJ2009Round2A/"></div>
+</section>
+<!-- disqus-->
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  <section>    
+<div class="noticelist">
+    <p class="asidetitle">公告</p>    
+<center><MARQUEE scrollAmount=1 direction=up width=230 height=120>
+<DIV align=center>本弱QQ：577435302<BR>如有问题，欢迎交流</FONT></DIV></MARQUEE>
+</center>
+</section>  
+
+  <section>    
+<h1></h1>    
+<center><div align="center">
+<table border="0" width="63%">
+
+<tbody>
+
+<tr>
+<td align="center">
+<embed allownetworking="none" src="http://www.blogclock.cn/swf/S100159f1bf6d59-8.swf" type="application/x-shockwave-flash" quality="high" wmode="transparent" height="170" width="180">
+<p>
+<a target="_blank" href="http://blog.sina.com.cn/s/blog_8c6d543e0100ybx9.html"></a></p>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+</div>
+</center>
+</section>  
+
+  <section>    
+<h1></h1>    
+<div>    
+    <p></p>    
+    <center><script type="text/javascript" src="//rh.revolvermaps.com/0/0/1.js?i=70pi20uw2rp&amp;s=220&amp;m=0&amp;v=true&amp;r=false&amp;b=000000&amp;n=false&amp;c=ff0000" async="async"></script>
+</center>    
+</div>    
+</section>  
+
+  <section>    
+<h1></h1>    
+<center><center><script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script>
+</center>
+</center>
+</section>  
+
+  <section>    
+<h1></h1>    
+<div>    
+    <p></p>    
+    <center>    
+   <a href="http://info.flagcounter.com/oJs0"><img src="http://s04.flagcounter.com/count/oJs0/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a> 
+    </center>    
+</div>    
+</section>  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/BFS/" title="BFS">BFS<sup>5</sup></a></li>
+		
+			<li><a href="/tags/DFS/" title="DFS">DFS<sup>7</sup></a></li>
+		
+			<li><a href="/tags/DP/" title="DP">DP<sup>3</sup></a></li>
+		
+			<li><a href="/tags/GCD/" title="GCD">GCD<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hash/" title="Hash">Hash<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二分/" title="二分">二分<sup>2</sup></a></li>
+		
+			<li><a href="/tags/优化/" title="优化">优化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/启发/" title="启发">启发<sup>1</sup></a></li>
+		
+			<li><a href="/tags/奥数/" title="奥数">奥数<sup>1</sup></a></li>
+		
+			<li><a href="/tags/思考/" title="思考">思考<sup>1</sup></a></li>
+		
+			<li><a href="/tags/想象/" title="想象">想象<sup>2</sup></a></li>
+		
+			<li><a href="/tags/技巧/" title="技巧">技巧<sup>3</sup></a></li>
+		
+			<li><a href="/tags/排序/" title="排序">排序<sup>2</sup></a></li>
+		
+			<li><a href="/tags/推导/" title="推导">推导<sup>1</sup></a></li>
+		
+			<li><a href="/tags/数学/" title="数学">数学<sup>3</sup></a></li>
+		
+			<li><a href="/tags/数据范围/" title="数据范围">数据范围<sup>1</sup></a></li>
+		
+			<li><a href="/tags/数论/" title="数论">数论<sup>1</sup></a></li>
+		
+			<li><a href="/tags/暴力/" title="暴力">暴力<sup>5</sup></a></li>
+		
+			<li><a href="/tags/最小值最大化/" title="最小值最大化">最小值最大化<sup>1</sup></a></li>
+		
+			<li><a href="/tags/枚举/" title="枚举">枚举<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/AOJ/" title="AOJ">AOJ<sup>2</sup></a></li>
+		
+			<li><a href="/categories/CodeForces/" title="CodeForces">CodeForces<sup>7</sup></a></li>
+		
+			<li><a href="/categories/GCJ/" title="GCJ">GCJ<sup>2</sup></a></li>
+		
+			<li><a href="/categories/HDU/" title="HDU">HDU<sup>4</sup></a></li>
+		
+			<li><a href="/categories/POJ/" title="POJ">POJ<sup>11</sup></a></li>
+		
+			<li><a href="/categories/Ural/" title="Ural">Ural<sup>1</sup></a></li>
+		
+			<li><a href="/categories/测试/" title="测试">测试<sup>1</sup></a></li>
+		
+			<li><a href="/categories/题目分类/" title="题目分类">题目分类<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://blog.csdn.net/u013447865?viewmode=contents" target="_blank" title="DoubleQ csdn">CSDN</a></li>
+    </ul>
+</div>
+
+
+  <section> 
+
+<div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>3D标签</title>
+
+<style type="text/css">
+.tagBall{width:240px;height:240px;margin:0px auto;position:relative;}
+.tag{display:block;position:absolute;left:0px;top:0px;color:#000;text-decoration:none;font-size:15px;font-family:"微软雅黑";font-weight:bold;}
+.tag:hover{border:1px solid #666;}
+</style>
+    
+</head>
+<body>
+
+<div class="tagBall">
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E4%BC%98%E5%8C%96/">优化</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E5%90%AF%E5%8F%91/">启发</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%80%9D%E8%80%83/">思考</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%83%B3%E8%B1%A1/">想象</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%8E%92%E5%BA%8F/">排序</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%9A%B4%E5%8A%9B/">暴力</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%9E%9A%E4%B8%BE/">枚举</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%B7%B1%E6%90%9C/">深搜</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E7%9F%A9%E9%98%B5/">矩阵</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E9%97%B2%E6%83%85/">闲情</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/BFS/">广搜</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/DP/">DP</a>
+<a class="tag" target="_blank" href="http://zhanghe.ac.cn/tags/Hash/">Hash</a>
+</div>
+
+<script type="text/javascript">
+var tagEle = "querySelectorAll" in document ? document.querySelectorAll(".tag") : getClass("tag"),
+    paper = "querySelectorAll" in document ? document.querySelector(".tagBall") : getClass("tagBall")[0];
+    RADIUS =120,
+    fallLength = 500,
+    tags=[],
+    angleX = Math.PI/500,
+    angleY = Math.PI/500,
+    CX = paper.offsetWidth/2,
+    CY = paper.offsetHeight/2,
+    EX = paper.offsetLeft + document.body.scrollLeft + document.documentElement.scrollLeft,
+    EY = paper.offsetTop + document.body.scrollTop + document.documentElement.scrollTop;
+
+function getClass(className){
+    var ele = document.getElementsByTagName("*");
+    var classEle = [];
+    for(var i=0;i<ele.length;i++){
+        var cn = ele[i].className;
+        if(cn === className){
+            classEle.push(ele[i]);
+        }
+    }
+    return classEle;
+}
+
+function innit(){
+    for(var i=0;i<tagEle.length;i++){
+        var a , b;
+        var k = (2*(i+1)-1)/tagEle.length - 1;
+        var a = Math.acos(k);
+        var b = a*Math.sqrt(tagEle.length*Math.PI);
+        // var a = Math.random()*2*Math.PI;
+        // var b = Math.random()*2*Math.PI;
+        var x = RADIUS * Math.sin(a) * Math.cos(b);
+        var y = RADIUS * Math.sin(a) * Math.sin(b); 
+        var z = RADIUS * Math.cos(a);
+        var t = new tag(tagEle[i] , x , y , z);
+        tagEle[i].style.color = "rgb("+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+")";
+        tags.push(t);
+        t.move();
+    }
+}
+
+Array.prototype.forEach = function(callback){
+    for(var i=0;i<this.length;i++){
+        callback.call(this[i]);
+    }
+}
+
+function animate(){
+    setInterval(function(){
+        rotateX();
+        rotateY();
+        tags.forEach(function(){
+            this.move();
+        })
+    } , 200)
+}
+
+if("addEventListener" in window){
+    paper.addEventListener("mousemove" , function(event){
+        var x = event.clientX - EX - CX;
+        var y = event.clientY - EY - CY;
+        // angleY = -x* (Math.sqrt(Math.pow(x , 2) + Math.pow(y , 2)) > RADIUS/4 ? 0.0002 : 0.0001);
+        // angleX = -y* (Math.sqrt(Math.pow(x , 2) + Math.pow(y , 2)) > RADIUS/4 ? 0.0002 : 0.0001);
+        angleY = x*0.0001;
+        angleX = y*0.0001;
+    });
+}
+else {
+    paper.attachEvent("onmousemove" , function(event){
+        var x = event.clientX - EX - CX;
+        var y = event.clientY - EY - CY;
+        angleY = x*0.0001;
+        angleX = y*0.0001;
+    });
+}
+
+function rotateX(){
+    var cos = Math.cos(angleX);
+    var sin = Math.sin(angleX);
+    tags.forEach(function(){
+        var y1 = this.y * cos - this.z * sin;
+        var z1 = this.z * cos + this.y * sin;
+        this.y = y1;
+        this.z = z1;
+    })
+    
+}
+
+function rotateY(){
+    var cos = Math.cos(angleY);
+    var sin = Math.sin(angleY);
+    tags.forEach(function(){
+        var x1 = this.x * cos - this.z * sin;
+        var z1 = this.z * cos + this.x * sin;
+        this.x = x1;
+        this.z = z1;
+    })
+}
+
+var tag = function(ele , x , y , z){
+    this.ele = ele;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+}
+
+tag.prototype = {
+    move:function(){
+        var scale = fallLength/(fallLength-this.z);
+        var alpha = (this.z+RADIUS)/(2*RADIUS);
+        this.ele.style.fontSize = 15 * scale + "px";
+        this.ele.style.opacity = alpha+0.5;
+        this.ele.style.filter = "alpha(opacity = "+(alpha+0.5)*100+")";
+        this.ele.style.zIndex = parseInt(scale*100);
+        this.ele.style.left = this.x + CX - this.ele.offsetWidth/2 +"px";
+        this.ele.style.top = this.y + CY - this.ele.offsetHeight/2 +"px";
+    }
+}
+innit();
+animate();
+</script>
+
+</body>
+</html>
+</section> 
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 人还是要有梦想的 <br/>
+			万一实现了呢！</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="pacman">pacman</a> © 2015 
+		
+		<a href="http://zhanghe.ac.cn" target="_blank" title="DoubleQ">DoubleQ</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zhanghe"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'challengemircles@gmail.com', 'null');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F77edef7e6931022edbd2322ec66456e1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+<script type="text/javascript">
+	(function($) { 
+		// When to show the scroll link
+		// higher number = scroll link appears further down the page   
+		var upperLimit = 300;
+		
+		// Our scroll link element
+		var scrollElem = $('#totop');
+	   
+		// Scroll to top speed
+		var scrollSpeed = 800;
+	   
+		// Show and hide the scroll to top link based on scroll position   
+		scrollElem.hide();
+		$(window).scroll(function () {            
+			var scrollTop = $(document).scrollTop();       
+			if ( scrollTop > upperLimit ) {
+				$(scrollElem).stop().fadeTo(300, 1); // fade back in           
+			}else{       
+				$(scrollElem).stop().fadeTo(300, 0); // fade out
+			}
+		});
+		// Scroll to top animation on click
+		$(scrollElem).click(function(){
+			$('html, body').animate({scrollTop:0}, scrollSpeed); return false;
+		});
+	})(jQuery);
+</script>
+
+
+  </body>
+</html>
+
